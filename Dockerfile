@@ -30,7 +30,7 @@ WORKDIR /frontend
 COPY src/frontend/package*.json ./
 RUN npm install
 
-COPY src/frontend/index.html src/frontend/app.js src/frontend/styles.css ./
+COPY src/frontend/index.html src/frontend/app.js src/frontend/styles.css src/frontend/favicon.png ./
 
 # Stage 4: Runtime
 FROM node:20-alpine

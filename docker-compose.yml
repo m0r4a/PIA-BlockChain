@@ -55,6 +55,7 @@ services:
       - ./src/frontend/index.html:/app/frontend/index.html
       - ./src/frontend/app.js:/app/frontend/app.js
       - ./src/frontend/styles.css:/app/frontend/styles.css
+      - ./src/frontend/favicon.png:/app/frontend/favicon.png
       - app-data:/app/data
     restart: unless-stopped
     healthcheck:
