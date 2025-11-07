@@ -1,0 +1,80 @@
+services:
+
+  # blockchain local
+  blockchain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: certichain-blockchain
+
+    # como usan la misma imagen tengo que anular el entrypoit para ejecutar solo el
+    # nodo hardhat
+    entrypoint: []
+    command: npx hardhat node --hostname 0.0.0.0
+    working_dir: /app/contracts
+
+    ports:
+      - "8545:8545"
+    networks:
+      - certichain-network
+    volumes:
+      - blockchain-data:/app/contracts/data
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 8545 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # backend + frontend
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: certichain-app
+    depends_on:
+      blockchain:
+        condition: service_healthy
+    ports:
+      - "8080:8080"    # backend API
+      - "3000:3000"    # frontend
+    networks:
+      - certichain-network
+    environment:
+      - BLOCKCHAIN_URL=http://blockchain:8545
+      - PORT=8080
+      - FRONTEND_PORT=3000
+      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS:-}
+      - NODE_ENV=production
+    env_file:
+      - .env
+    volumes:
+      - deployments-data:/app/contracts/deployments
+
+      # archivos de desarrollo
+      - ./src/frontend/index.html:/app/frontend/index.html
+      - ./src/frontend/app.js:/app/frontend/app.js
+      - ./src/frontend/styles.css:/app/frontend/styles.css
+      - app-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  certichain-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  blockchain-data:
+    driver: local
+  app-data:
+    driver: local
+  deployments-data:
+    driver: local

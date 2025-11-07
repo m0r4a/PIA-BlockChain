@@ -1,0 +1,23 @@
+{
+  "name": "certichain-contracts",
+  "version": "1.0.0",
+  "description": "Smart Contracts para CertiChain",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run deploy.js --network localhost",
+    "node": "hardhat node"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "smart-contracts"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.15.0",
+    "hardhat": "^2.19.0"
+  }
+}
