@@ -82,8 +82,8 @@ El proyecto utiliza una arquitectura de tres capas:
 
 1. Clonar el repositorio:
 ```bash
-git clone <repository-url>
-cd certichain
+git clone https://github.com/m0r4a/PIA-BlockChain.git
+cd PIA-BlockChain
 ```
 
 2. Construir y levantar los servicios:
