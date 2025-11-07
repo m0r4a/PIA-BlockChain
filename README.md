@@ -108,6 +108,9 @@ docker-compose up --build
    - Símbolo: ETH
 
 2. Importar cuenta de desarrollo:
+   - Da click en tu cuenta actual
+   - En la parte de abajo da click en `Agregar cuenta o Billetera`
+   - Selecciona la opción `Llave privada`
    - Usar cualquiera de las cuentas de prueba listadas abajo
    - La cuenta #0 tiene permisos de administrador por defecto
 
