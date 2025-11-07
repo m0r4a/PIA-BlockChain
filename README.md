@@ -2,6 +2,31 @@
 
 Sistema descentralizado de certificados académicos construido con Ethereum, Go y JavaScript vanilla.
 
+## Tabla de Contenidos
+
+- [Descripción](#descripción)
+- [Características](#características)
+- [Arquitectura](#arquitectura)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos previos](#requisitos-previos)
+- [Instalación y ejecución](#instalación-y-ejecución)
+  - [Usando Docker (recomendado)](#usando-docker-recomendado)
+  - [Configuración de MetaMask](#configuración-de-metamask)
+- [Cuentas de desarrollo](#cuentas-de-desarrollo)
+- [Uso](#uso)
+  - [Emitir un certificado (solo administradores)](#emitir-un-certificado-solo-administradores)
+  - [Solicitar un certificado (cualquier usuario)](#solicitar-un-certificado-cualquier-usuario)
+  - [Verificar un certificado (sin autenticación)](#verificar-un-certificado-sin-autenticación)
+- [API Backend](#api-backend)
+- [Smart Contract](#smart-contract)
+  - [Funciones principales](#funciones-principales)
+  - [Eventos](#eventos)
+- [Showcase](#showcase)
+- [Problemas conocidos](#problemas-conocidos)
+- [Desarrollo](#desarrollo)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Seguridad](#seguridad)
+
 ## Descripción
 
 CertiChain es una plataforma blockchain que permite a instituciones educativas emitir, verificar y gestionar certificados académicos de forma inmutable y transparente. Los certificados se almacenan en la blockchain de Ethereum, garantizando su autenticidad y prevención de fraude.
@@ -28,17 +53,17 @@ El proyecto utiliza una arquitectura de tres capas:
 ├── Dockerfile
 ├── README.md
 ├── resources
-│   ├── emision_certificado.jpg
-│   └── verificar_certificado.jpg
+│   ├── emision_certificado.jpg
+│   └── verificar_certificado.jpg
 └── src
     ├── backend
-    │   ├── go.mod
-    │   └── main.go
+    │   ├── go.mod
+    │   └── main.go
     ├── contract
-    │   ├── contract.sol
-    │   ├── deploy.js
-    │   ├── hardhat.config.js
-    │   └── package.json
+    │   ├── contract.sol
+    │   ├── deploy.js
+    │   ├── hardhat.config.js
+    │   └── package.json
     └── frontend
         ├── app.js
         ├── index.html
@@ -90,47 +115,21 @@ docker-compose up --build
 
 Hardhat proporciona 10 cuentas precargadas con 10,000 ETH cada una:
 
-### Cuenta #0 (Administrador)
-- Dirección: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
-- Clave privada: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
+| Cuenta | Dirección | Clave Privada | Rol |
+|--------|-----------|---------------|-----|
+| #0 | `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266` | `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80` | Administrador |
+| #1 | `0x70997970C51812dc3A010C7d01b50e0d17dc79C8` | `0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d` | Usuario |
+| #2 | `0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC` | `0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a` | Usuario |
+| #3 | `0x90F79bf6EB2c4f870365E785982E1f101E93b906` | `0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6` | Usuario |
+| #4 | `0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65` | `0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a` | Usuario |
+| #5 | `0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc` | `0x8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba` | Usuario |
+| #6 | `0x976EA74026E726554dB657fA54763abd0C3a0aa9` | `0x92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e` | Usuario |
+| #7 | `0x14dC79964da2C08b23698B3D3cc7Ca32193d9955` | `0x4bbbf85ce3377467afe5d46f804f221813b2bb87f24d81f60f1fcdbf7cbf4356` | Usuario |
+| #8 | `0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f` | `0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97` | Usuario |
+| #9 | `0xa0Ee7A142d267C1f36714E4a8F75612F20a79720` | `0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6` | Usuario |
 
-### Cuenta #1
-- Dirección: `0x70997970C51812dc3A010C7d01b50e0d17dc79C8`
-- Clave privada: `0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d`
-
-### Cuenta #2
-- Dirección: `0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC`
-- Clave privada: `0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a`
-
-### Cuenta #3
-- Dirección: `0x90F79bf6EB2c4f870365E785982E1f101E93b906`
-- Clave privada: `0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6`
-
-### Cuenta #4
-- Dirección: `0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65`
-- Clave privada: `0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a`
-
-### Cuenta #5
-- Dirección: `0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc`
-- Clave privada: `0x8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba`
-
-### Cuenta #6
-- Dirección: `0x976EA74026E726554dB657fA54763abd0C3a0aa9`
-- Clave privada: `0x92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e`
-
-### Cuenta #7
-- Dirección: `0x14dC79964da2C08b23698B3D3cc7Ca32193d9955`
-- Clave privada: `0x4bbbf85ce3377467afe5d46f804f221813b2bb87f24d81f60f1fcdbf7cbf4356`
-
-### Cuenta #8
-- Dirección: `0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f`
-- Clave privada: `0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97`
-
-### Cuenta #9
-- Dirección: `0xa0Ee7A142d267C1f36714E4a8F75612F20a79720`
-- Clave privada: `0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6`
-
-**Nota**: La cuenta #0 es la única con permisos de administrador inicialmente. Las demás cuentas funcionan como usuarios normales.
+> [!NOTE]
+> La cuenta #0 es la única con permisos de administrador inicialmente. Las demás cuentas funcionan como usuarios normales.
 
 > [!TIP]
 > Para cambiar de cuenta tienes que darle al menú de arriba a la derecha tipo hamburguesa, darle a `All permissions` o `Todos los permisos` y en `localhost:3000` podrás ver y cambiar la cuenta.
@@ -267,4 +266,4 @@ npx hardhat run deploy.js --network localhost
 
 ## Seguridad
 
-Este proyecto es solo para la universidad, desconozco cualquier posible vulnerabilidad pequeña o grande que haya introducido, por favor JAMÁ§ expongas ninguna de estas apps al internet.
+Este proyecto es solo para la universidad, desconozco cualquier posible vulnerabilidad pequeña o grande que haya introducido, por favor JAMÁS expongas ninguna de estas apps al internet.
