@@ -108,7 +108,7 @@ window.onload = async function() {
 
     async function checkWalletConnection() {
         if (typeof window.ethereum === 'undefined') {
-            if (window.showToast) window.showToast('Please install MetaMask to use this application', 'warning');
+            if (window.showToast) window.showToast('Por favor instala MetaMask para usar esta aplicación', 'warning');
             return;
         }
 
@@ -133,7 +133,7 @@ window.onload = async function() {
 
     async function connectWallet(isReload = false, preloadedAccounts = null) {
         if (typeof window.ethereum === 'undefined') {
-            if (window.showToast) window.showToast('MetaMask is not installed', 'error');
+            if (window.showToast) window.showToast('MetaMask no está instalado', 'error');
             return;
         }
 
@@ -187,13 +187,13 @@ window.onload = async function() {
 
             // esto hace que cuando hagas un F5 no vueva a salir esto de la wallet se conectó
             if (!isReload) {
-                if (window.showToast) window.showToast('Wallet connected successfully', 'success');
+                if (window.showToast) window.showToast('Wallet conectada exitosamente', 'success');
                 updateUI();
             }
 
         } catch (error) {
             console.error('Error connecting wallet:', error);
-            if (window.showToast) window.showToast('Failed to connect wallet: ' + (error.reason || error.message), 'error');
+            if (window.showToast) window.showToast('Error al conectar wallet: ' + (error.reason || error.message), 'error');
             disconnectWallet(true);
         }
     }
@@ -211,7 +211,7 @@ window.onload = async function() {
 
         if (!isSilent) {
             updateUI();
-            if (window.showToast) window.showToast('Wallet disconnected', 'info');
+            if (window.showToast) window.showToast('Wallet desconectada', 'info');
         }
     }
 
@@ -235,7 +235,7 @@ window.onload = async function() {
 
     async function issueCertificate() {
         if (!state.isConnected) {
-            if (window.showToast) window.showToast('Please connect your wallet first', 'warning');
+            if (window.showToast) window.showToast('Por favor conecta tu wallet primero', 'warning');
             return;
         }
 
@@ -244,17 +244,17 @@ window.onload = async function() {
         const institution = document.getElementById('institution').value;
 
         if (!studentAddress || !certificateHash || !institution) {
-            if (window.showToast) window.showToast('Please complete all fields', 'warning');
+            if (window.showToast) window.showToast('Por favor completa todos los campos', 'warning');
             return;
         }
 
         if (!ethers.isAddress(studentAddress)) {
-            if (window.showToast) window.showToast('Invalid student address', 'error');
+            if (window.showToast) window.showToast('Dirección de estudiante inválida', 'error');
             return;
         }
 
         try {
-            if (window.showToast) window.showToast('Processing transaction...', 'info');
+            if (window.showToast) window.showToast('Procesando transacción...', 'info');
 
             const issueFee = await state.contract.issueFee();
             const tx = await state.contract.issueCertificate(
@@ -264,10 +264,10 @@ window.onload = async function() {
                 { value: issueFee }
             );
 
-            if (window.showToast) window.showToast('Waiting for confirmation...', 'info');
+            if (window.showToast) window.showToast('Esperando confirmación...', 'info');
             await tx.wait();
 
-            if (window.showToast) window.showToast('Certificate issued successfully', 'success');
+            if (window.showToast) window.showToast('Certificado emitido exitosamente', 'success');
             document.getElementById('issueForm').reset();
 
             await loadDashboardData();
@@ -276,43 +276,43 @@ window.onload = async function() {
         } catch (error) {
             console.error('Error issuing certificate:', error);
             if (error.message.includes('Only admin')) {
-                if (window.showToast) window.showToast('Only administrators can issue certificates', 'error');
+                if (window.showToast) window.showToast('Solo los administradores pueden emitir certificados', 'error');
             } else {
-                if (window.showToast) window.showToast('Failed to issue certificate: ' + (error.reason || error.message), 'error');
+                if (window.showToast) window.showToast('Error al emitir certificado: ' + (error.reason || error.message), 'error');
             }
         }
     }
 
     async function requestCertificate() {
         if (!state.isConnected) {
-            if (window.showToast) window.showToast('Please connect your wallet first', 'warning');
+            if (window.showToast) window.showToast('Por favor conecta tu wallet primero', 'warning');
             return;
         }
 
         const certificateHash = document.getElementById('requestCertificateHash').value;
 
         if (!certificateHash) {
-            if (window.showToast) window.showToast('Please enter the certificate hash', 'warning');
+            if (window.showToast) window.showToast('Por favor ingresa el hash del certificado', 'warning');
             return;
         }
 
         try {
-            if (window.showToast) window.showToast('Processing request...', 'info');
+            if (window.showToast) window.showToast('Procesando solicitud...', 'info');
 
             const requestFee = await state.contract.requestFee();
             const tx = await state.contract.requestCertificate(certificateHash, {
                 value: requestFee
             });
 
-            if (window.showToast) window.showToast('Waiting for confirmation...', 'info');
+            if (window.showToast) window.showToast('Esperando confirmación...', 'info');
             await tx.wait();
 
-            if (window.showToast) window.showToast('Certificate request submitted successfully', 'success');
+            if (window.showToast) window.showToast('Solicitud de certificado enviada exitosamente', 'success');
             document.getElementById('requestCertificateHash').value = '';
 
         } catch (error) {
             console.error('Error requesting certificate:', error);
-            if (window.showToast) window.showToast('Failed to request certificate: ' + (error.reason || error.message), 'error');
+            if (window.showToast) window.showToast('Error al solicitar certificado: ' + (error.reason || error.message), 'error');
         }
     }
 
@@ -320,7 +320,7 @@ window.onload = async function() {
         const certificateHash = document.getElementById('verifyCertificateHash').value;
 
         if (!certificateHash) {
-            if (window.showToast) window.showToast('Please enter the certificate hash', 'warning');
+            if (window.showToast) window.showToast('Por favor ingresa el hash del certificado', 'warning');
             return;
         }
 
@@ -330,7 +330,7 @@ window.onload = async function() {
                 const readOnlyProvider = new ethers.JsonRpcProvider(CONFIG.rpcUrl);
                 contractInstance = new ethers.Contract(CONFIG.contractAddress, CONTRACT_ABI, readOnlyProvider);
             } catch (e) {
-                if (window.showToast) window.showToast('Failed to connect to blockchain', 'error');
+                if (window.showToast) window.showToast('Error al conectar con la blockchain', 'error');
                 return;
             }
         }
@@ -353,25 +353,25 @@ window.onload = async function() {
                     </div>
                 `;
 
-                if (window.showToast) window.showToast('Certificate verified successfully', 'success');
+                if (window.showToast) window.showToast('Certificado verificado exitosamente', 'success');
             } else {
                 resultDiv.innerHTML = `
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4 dark:bg-red-900/50 dark:border-red-700">
-                        <h4 class="font-bold text-red-800 mb-2 dark:text-red-200">Certificate Not Found</h4>
-                        <p class="text-gray-700 dark:text-gray-300">This certificate does not exist on the blockchain</p>
+                        <h4 class="font-bold text-red-800 mb-2 dark:text-red-200">Certificado No Encontrado</h4>
+                        <p class="text-gray-700 dark:text-gray-300">Este certificado no existe en la blockchain</p>
                     </div>
                 `;
 
-                if (window.showToast) window.showToast('Certificate not found', 'error');
+                if (window.showToast) window.showToast('Certificado no encontrado', 'error');
             }
 
         } catch (error) {
             console.error('Error verifying certificate:', error);
-            if (window.showToast) window.showToast('Failed to verify certificate: ' + (error.reason || error.message), 'error');
+            if (window.showToast) window.showToast('Error al verificar certificado: ' + (error.reason || error.message), 'error');
 
             resultDiv.innerHTML = `
                 <div class="bg-red-50 border border-red-200 rounded-lg p-4 dark:bg-red-900/50 dark:border-red-700">
-                    <h4 class="font-bold text-red-800 mb-2 dark:text-red-200">Verification Error</h4>
+                    <h4 class="font-bold text-red-800 mb-2 dark:text-red-200">Error de Verificación</h4>
                     <p class="text-gray-700 dark:text-gray-300">${error.reason || error.message}</p>
                 </div>
             `;
