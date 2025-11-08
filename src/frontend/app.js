@@ -346,10 +346,10 @@ window.onload = async function() {
 
                 resultDiv.innerHTML = `
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4 dark:bg-green-900/50 dark:border-green-700">
-                        <h4 class="font-bold text-green-800 mb-2 dark:text-green-200">Valid Certificate</h4>
-                        <p class="text-gray-700 dark:text-gray-300"><strong>Student:</strong> ${student}</p>
-                        <p class="text-gray-700 dark:text-gray-300"><strong>Institution:</strong> ${institution}</p>
-                        <p class="text-gray-700 dark:text-gray-300"><strong>Date:</strong> ${date}</p>
+                        <h4 class="font-bold text-green-800 mb-2 dark:text-green-200">Certificado Válido</h4>
+                        <p class="text-gray-700 dark:text-gray-300"><strong>Estudiante:</strong> ${student}</p>
+                        <p class="text-gray-700 dark:text-gray-300"><strong>Institución:</strong> ${institution}</p>
+                        <p class="text-gray-700 dark:text-gray-300"><strong>Fecha:</strong> ${date}</p>
                     </div>
                 `;
 
